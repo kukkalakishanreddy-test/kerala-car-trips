@@ -230,3 +230,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .enquiry-action-note strong { color: #173d31; font-size: 13px; }
 .enquiry-action-note span { color: #52665e; }
 @media (max-width: 520px) { .fare-actions { grid-template-columns: 1fr; } .fare-estimate-head > strong { font-size: 22px; } }
+
+/* Move hero enquiry box slightly right on desktop */
+.hero-enquiry {
+  transform: translateX(120px);
+}
+
+@media (max-width: 700px) {
+  .hero-enquiry {
+    transform: none;
+  }
+}
