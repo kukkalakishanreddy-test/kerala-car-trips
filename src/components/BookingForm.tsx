@@ -73,6 +73,7 @@ export default function BookingForm() {
   const [message, setMessage] = useState("");
   const [recalculated, setRecalculated] = useState(false);
   const [whatsappConsent, setWhatsappConsent] = useState(false);
+  const [showQuotation, setShowQuotation] = useState(false);
 
   const set = (key: keyof FormValues, value: string) => {
     setValues((v) => ({ ...v, [key]: value }));
@@ -251,9 +252,9 @@ export default function BookingForm() {
 
       setStatus("success");
       setMessage(
-        result.message ||
-          "WhatsApp accepted your itinerary request. Delivery confirmation may take a moment."
+        "WhatsApp accepted your quotation for delivery. Please check the customer's WhatsApp account. Delivery confirmation may take a moment."
       );
+      setShowQuotation(true);
     } catch (error) {
       setStatus("error");
       setMessage(
@@ -380,6 +381,83 @@ export default function BookingForm() {
 
   return (
     <form className="booking-form card" onSubmit={submit}>
+      {showQuotation ? (
+        <div className="quotation-result" aria-live="polite">
+          <div className="quotation-success-icon">
+            <CheckCircle2 size={30} />
+          </div>
+          <span className="eyebrow">QUOTATION SENT</span>
+          <h3>Your trip quotation</h3>
+          <p className="quotation-accepted">
+            WhatsApp accepted your quotation for delivery.
+          </p>
+          <p className="quotation-check">
+            Please check the customer's WhatsApp account. The message may take
+            a little time to arrive.
+          </p>
+
+          <div className="quotation-trip">
+            <div>
+              <small>CUSTOMER</small>
+              <strong>{values.name}</strong>
+            </div>
+            <div>
+              <small>YOUR ROUTE</small>
+              <strong>{values.pickup} → {values.destination}</strong>
+            </div>
+            <div>
+              <small>TRAVEL DATES</small>
+              <strong>{formatDate(values.fromDate)} – {formatDate(values.toDate)}</strong>
+            </div>
+            <div>
+              <small>TRAVELLERS / TRIP TYPE</small>
+              <strong>{values.travellers} · {values.tripType}</strong>
+            </div>
+            <div>
+              <small>ESTIMATED DISTANCE</small>
+              <strong>{estimate?.km.toLocaleString("en-IN")} km</strong>
+            </div>
+          </div>
+
+          <div className="quotation-breakdown">
+            <div><span>Duration</span><strong>{estimate?.days} day(s)</strong></div>
+            <div><span>Daily rate</span><strong>₹{estimate?.ratePerDay.toLocaleString("en-IN")}</strong></div>
+            <div><span>Included distance</span><strong>{estimate?.includedKm} km</strong></div>
+            <div><span>Extra distance</span><strong>{estimate?.extraKm} km</strong></div>
+            <div><span>Base fare</span><strong>₹{estimate?.base.toLocaleString("en-IN")}</strong></div>
+            <div><span>Extra distance charge</span><strong>₹{estimate?.extraCharge.toLocaleString("en-IN")}</strong></div>
+            <div className="quotation-total">
+              <span>Estimated total</span>
+              <strong>₹{estimate?.total.toLocaleString("en-IN")}</strong>
+            </div>
+          </div>
+
+          {values.notes.trim() && (
+            <div className="quotation-notes">
+              <strong>Additional requests</strong>
+              <p>{values.notes}</p>
+            </div>
+          )}
+
+          <p className="quotation-disclaimer">
+            This is an indicative estimate. Final route distance, tolls,
+            parking, permits and other applicable charges must be confirmed.
+            This message does not confirm a booking.
+          </p>
+          <button
+            className="btn btn-outline quotation-edit-btn"
+            type="button"
+            onClick={() => {
+              setShowQuotation(false);
+              setStatus("idle");
+              setMessage("");
+            }}
+          >
+            <RefreshCw size={16} /> Back to edit trip details
+          </button>
+        </div>
+      ) : (
+        <>
       <div className="form-heading">
         <span className="form-step">01</span>
         <div>
@@ -639,6 +717,8 @@ export default function BookingForm() {
         press Send before the owner receives it. Neither option confirms a
         booking.
       </p>
+        </>
+      )}
     </form>
   );
 }

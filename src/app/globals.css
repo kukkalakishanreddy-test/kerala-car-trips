@@ -241,3 +241,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
     transform: none;
   }
 }
+
+
+/* Customer quotation result shown after WhatsApp accepts the message */
+.quotation-result { padding: 8px 2px 2px; animation: quotation-reveal .35s ease both; }
+.quotation-success-icon { display: grid; place-items: center; width: 58px; height: 58px; margin-bottom: 15px; border-radius: 50%; color: #176b4d; background: #e8f7ed; }
+.quotation-result > h3 { margin: 8px 0 10px; color: var(--ink); font-size: 27px; letter-spacing: -.04em; }
+.quotation-accepted { margin: 0; color: #176b4d; font-size: 14px; font-weight: 800; line-height: 1.6; }
+.quotation-check { margin: 5px 0 20px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.quotation-trip { display: grid; gap: 13px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fbfcfa; }
+.quotation-trip > div { display: grid; gap: 4px; }
+.quotation-trip small { color: #718078; font-size: 9px; font-weight: 800; letter-spacing: .07em; }
+.quotation-trip strong { color: var(--ink); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.quotation-breakdown { display: grid; gap: 11px; margin-top: 15px; padding: 16px; border: 1px solid #dcebe2; border-radius: 14px; background: #f5faf6; }
+.quotation-breakdown > div { display: flex; justify-content: space-between; gap: 14px; color: #52665e; font-size: 12px; }
+.quotation-breakdown strong { color: var(--ink); text-align: right; }
+.quotation-breakdown .quotation-total { align-items: center; margin-top: 3px; padding-top: 13px; border-top: 1px solid #d5e5da; color: var(--green-dark); font-size: 14px; font-weight: 800; }
+.quotation-breakdown .quotation-total strong { color: var(--green); font-size: 24px; white-space: nowrap; }
+.quotation-notes { margin-top: 14px; padding: 13px; border-radius: 12px; background: #f7f8f2; color: var(--ink); font-size: 12px; }
+.quotation-notes p { margin: 6px 0 0; color: var(--muted); line-height: 1.6; white-space: pre-wrap; }
+.quotation-disclaimer { margin: 14px 0; color: #7b8980; font-size: 10px; line-height: 1.6; }
+.quotation-edit-btn { width: 100%; margin-top: 7px; }
+@keyframes quotation-reveal { from { opacity: 0; transform: perspective(900px) rotateY(-8deg) translateX(12px); } to { opacity: 1; transform: perspective(900px) rotateY(0) translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .quotation-result { animation: none; } }
