@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -52,14 +51,35 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Match the six placeholders in kerala_tours_quotation.
+  /*
+   * Keep the Meta template message short.
+   *
+   * The complete itinerary is intentionally NOT sent through
+   * the template variable because Meta can reject long translated
+   * template text with error 132005.
+   *
+   * {{1}} Customer name
+   * {{2}} Pickup location
+   * {{3}} Destination
+   * {{4}} Travel dates
+   * {{5}} Short quotation summary
+   * {{6}} Total quotation
+   */
+
+  const shortQuotation = [
+    "4-day Kerala Grand Scenic Circuit",
+    "₹3,500/day",
+    "130 km/day FREE",
+    "Extra distance: ₹17/km",
+  ].join(" | ");
+
   const parameters = [
-    clean(body.name, 100),        // {{1}} Customer name
-    clean(body.pickup, 200),      // {{2}} Pickup location
-    clean(body.destination, 200), // {{3}} Destination
-    clean(body.travelDate, 100),  // {{4}} Travel date
-    clean(body.itinerary, 900),   // {{5}} Travel itinerary
-    clean(body.total, 200),       // {{6}} Total quotation
+    clean(body.name, 80),
+    clean(body.pickup, 80),
+    clean(body.destination, 100),
+    clean(body.travelDate, 80),
+    clean(shortQuotation, 250),
+    clean(body.total, 50),
   ];
 
   try {
@@ -99,11 +119,14 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const metaMessage =
         result?.error?.message || "WhatsApp could not send the quotation.";
+
       const metaCode = result?.error?.code;
 
       return NextResponse.json(
         {
-          error: `${metaMessage} (Meta error ${metaCode ?? "unknown"}). Please check the template name, language, approval and API credentials.`,
+          error: `${metaMessage} (Meta error ${
+            metaCode ?? "unknown"
+          }). Please check the template name, language, approval and API credentials.`,
         },
         { status: 502 }
       );

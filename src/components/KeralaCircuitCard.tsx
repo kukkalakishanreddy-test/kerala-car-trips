@@ -81,18 +81,23 @@ export default function KeralaCircuitCard() {
     setIsCardHovered(false);
   }
 
+  // NEXT DESTINATION
   function showNext() {
-    const nextIndex = (activeIndex + 1) % destinations.length;
-    openPreview(nextIndex);
+    cancelClose();
+
+    setActiveIndex((current) => (current + 1) % destinations.length);
   }
 
+  // PREVIOUS DESTINATION
   function showPrevious() {
-    const previousIndex =
-      (activeIndex - 1 + destinations.length) % destinations.length;
-    openPreview(previousIndex);
+    cancelClose();
+
+    setActiveIndex(
+      (current) => (current - 1 + destinations.length) % destinations.length
+    );
   }
 
-  // Automatically change destinations every 4 seconds.
+  // AUTOMATIC SLIDER
   useEffect(() => {
     if (isCardHovered || previewOpen) return;
 
@@ -103,7 +108,7 @@ export default function KeralaCircuitCard() {
     return () => window.clearInterval(interval);
   }, [isCardHovered, previewOpen]);
 
-  // Play the selected destination video from the beginning.
+  // RESTART THE VIDEO WHEN THE DESTINATION CHANGES
   useEffect(() => {
     const video = videoRef.current;
 
@@ -120,7 +125,7 @@ export default function KeralaCircuitCard() {
     };
   }, [activeIndex, previewOpen]);
 
-  // Clean up the closing timer.
+  // CLEAN UP TIMER
   useEffect(() => {
     return () => {
       if (closeTimerRef.current !== null) {
@@ -140,14 +145,13 @@ export default function KeralaCircuitCard() {
     >
       <article className="kerala-circuit-card">
         <div className="circuit-card-heading">
-  <h3>Kerala Grand Scenic Circuit</h3>
+          <h3>Kerala Grand Scenic Circuit</h3>
+          <p>
+            Waterfalls • Tea Gardens • Hills • Wildlife • Backwaters
+          </p>
+        </div>
 
-  <p>
-    Waterfalls • Tea Gardens • Hills • Wildlife • Backwaters
-  </p>
-</div>
-
-        {/* HORIZONTAL DESTINATION SLIDER */}
+        {/* DESTINATION SLIDER */}
         <div className="circuit-destinations">
           <div
             className="circuit-slider-track"
@@ -183,21 +187,29 @@ export default function KeralaCircuitCard() {
             ))}
           </div>
 
-          {/* LEFT ARROW */}
+          {/* PREVIOUS ARROW */}
           <button
             type="button"
             className="circuit-arrow circuit-arrow-left"
-            onClick={showPrevious}
+            onMouseEnter={cancelClose}
+            onClick={(event) => {
+              event.stopPropagation();
+              showPrevious();
+            }}
             aria-label="Previous destination"
           >
             &#10094;
           </button>
 
-          {/* RIGHT ARROW */}
+          {/* NEXT ARROW */}
           <button
             type="button"
             className="circuit-arrow circuit-arrow-right"
-            onClick={showNext}
+            onMouseEnter={cancelClose}
+            onClick={(event) => {
+              event.stopPropagation();
+              showNext();
+            }}
             aria-label="Next destination"
           >
             &#10095;
@@ -218,15 +230,13 @@ export default function KeralaCircuitCard() {
 
           <h3>Kerala Grand Scenic Circuit</h3>
 
-
-
           <p className="tour-route-details">
             <strong>Tour Route:</strong>
             <br />
             Athirappilly → Munnar → Thekkady → Alleppey → Kumarakom
           </p>
 
-          {/* FARE AND ENQUIRY BUTTON */}
+          {/* FARE AND ENQUIRY */}
           <div className="tour-bottom">
             <div className="tour-price">
               ₹0
@@ -244,7 +254,7 @@ export default function KeralaCircuitCard() {
         </div>
       </article>
 
-      {/* FLOATING VIDEO PREVIEW ON THE RIGHT */}
+      {/* FLOATING VIDEO PREVIEW */}
       {previewOpen && (
         <aside
           className="cinematic-preview"

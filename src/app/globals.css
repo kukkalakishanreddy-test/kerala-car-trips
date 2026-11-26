@@ -692,6 +692,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .form-grid {
   display: grid;
+  align-items: start;
   grid-template-columns: 1fr 1fr;
   gap: 17px 14px;
 }
@@ -995,6 +996,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .circuit-destinations {
   position: relative;
+  z-index: 10000;
   width: 100%;
   padding: 0 22px 18px;
 }
@@ -1105,9 +1107,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 /* Slider navigation arrows */
 
 .circuit-arrow {
-  position: absolute;
+   position: absolute;
   top: 50%;
-  z-index: 5;
+  z-index: 10001;
+  pointer-events: auto;
   display: grid;
   place-items: center;
   width: 42px;
@@ -1194,26 +1197,35 @@ button, a { -webkit-tap-highlight-color: transparent; }
    FLOATING CINEMATIC VIDEO PREVIEW
 ========================================= */
 
+
 .cinematic-preview {
   position: fixed;
   top: 50%;
-  right: 35px;
+  left: 12px;
+  right: auto;
   z-index: 9999;
-  width: min(540px, calc(48vw - 40px));
+
+  width: min(480px, 40vw);
   height: min(620px, 76vh);
+
   overflow: hidden;
   isolation: isolate;
+
   background: rgba(255, 255, 255, 0.10);
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 26px;
+
   box-shadow:
     0 20px 55px rgba(0, 0, 0, 0.16),
     inset 0 1px 1px rgba(255, 255, 255, 0.25);
+
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(3px);
+
   transform: translateY(-50%);
   animation: cinematic-enter 0.4s ease-out;
 }
+
 
 @keyframes cinematic-enter {
   from {
@@ -1691,4 +1703,435 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .kochi-card-heading p {
     font-size: 12px;
   }
+}
+
+
+/* =========================================
+   WHATSAPP QUOTATION RESULT SCREEN
+========================================= */
+
+.quotation-result {
+  width: 100%;
+  padding: 8px 2px;
+  color: var(--ink);
+  animation: quotation-appear 0.4s ease-out;
+}
+
+@keyframes quotation-appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quotation-success-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  color: #176b4d;
+  background: #eaf7ed;
+}
+
+.quotation-result h3 {
+  margin: 10px 0;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.quotation-accepted {
+  color: #176b4d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.quotation-check {
+  color: #63746d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.quotation-trip {
+  display: grid;
+  gap: 13px;
+  margin-top: 20px;
+  padding: 17px;
+  border: 1px solid #e4e9e1;
+  border-radius: 14px;
+  background: #f8faf7;
+}
+
+.quotation-trip div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.quotation-trip small {
+  color: #718078;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.quotation-trip strong {
+  color: #132d27;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.quotation-breakdown {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 17px;
+  border: 1px solid #dcebe2;
+  border-radius: 14px;
+  background: #f5faf6;
+}
+
+.quotation-breakdown > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  color: #52665e;
+  font-size: 12px;
+}
+
+.quotation-breakdown strong {
+  color: #173d31;
+  text-align: right;
+}
+
+.quotation-breakdown .quotation-total {
+  margin-top: 5px;
+  padding-top: 14px;
+  border-top: 1px solid #cbded1;
+  color: #173d31;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.quotation-total strong {
+  color: #087b50;
+  font-size: 23px;
+}
+
+.quotation-notes {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #f8faf7;
+  font-size: 12px;
+}
+
+.quotation-notes p {
+  margin-bottom: 0;
+  color: #63746d;
+  line-height: 1.6;
+}
+
+.quotation-disclaimer {
+  margin: 16px 0;
+  color: #89958d;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.quotation-edit-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (max-width: 520px) {
+  .quotation-result h3 {
+    font-size: 22px;
+  }
+
+  .quotation-breakdown,
+  .quotation-trip {
+    padding: 13px;
+  }
+}
+.pickup-location-note {
+  display: block;
+  margin-top: 7px;
+  color: #176b4d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pickup-location-note {
+  display: block;
+  margin-top: 7px;
+  color: #176b4d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Interactive destination journey */
+.destination-journey-card {
+  margin-top: 2px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(247, 248, 242, 0.98),
+    rgba(255, 255, 255, 0.98)
+  );
+}
+
+.destination-journey-route {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+}
+
+.journey-location {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.journey-location svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.journey-location small,
+.destination-journey-stats small {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.journey-location strong {
+  display: block;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+.destination-location {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.journey-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--green-dark);
+}
+
+.destination-journey-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.destination-journey-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--line);
+}
+
+.destination-journey-stats svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.destination-journey-stats strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.destination-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.destination-info-label {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--green-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.destination-info-grid ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.destination-info-grid li {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.destination-info-note {
+  margin: 16px 0 0;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .destination-journey-card {
+    padding: 16px;
+  }
+
+  .destination-journey-route {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .destination-location {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .journey-line {
+    width: 36px;
+    height: 36px;
+    transform: rotate(90deg);
+  }
+
+  .destination-journey-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .destination-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Kerala Grand Circuit - Four Day Itinerary */
+
+.circuit-itinerary {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.circuit-itinerary-heading {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+
+.circuit-day-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.circuit-day-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.circuit-day-heading strong {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.circuit-day-number {
+  flex-shrink: 0;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.circuit-day-card ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.circuit-day-card li {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.circuit-overnight {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--green-dark);
+}
+
+@media (max-width: 600px) {
+  .circuit-day-card {
+    padding: 14px;
+  }
+
+  .circuit-day-heading {
+    align-items: flex-start;
+  }
+}
+
+/* Kerala Grand Circuit itinerary bullet points */
+
+.circuit-day-card ul {
+  list-style-type: disc;
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.circuit-day-card ul li {
+  display: list-item;
+  list-style-type: disc;
+  margin-bottom: 9px;
+  padding-left: 3px;
+  line-height: 1.6;
+}
+input[type="date"] {
+  height: 54px !important;
+  min-height: 54px !important;
+  max-height: 54px !important;
+  box-sizing: border-box;
+  padding: 0 16px !important;
+  line-height: normal;
+  display: block;
 }
